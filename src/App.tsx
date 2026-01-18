@@ -1,20 +1,25 @@
 import './App.css'
-import { Button } from './components/ui/button'
-import { ToastContainer, toast } from 'react-toastify'
-import { Camera } from 'lucide-react'
+import { useStore } from './store'
+import { ShoppingList } from './features/shopping-list/ShoppingListPage'
+import { BottomBar } from './components/BottomBar'
 
 
 function App() {
-	    const notify = () => toast('Wow so easy!')
+	const selectedCategory = useStore(s => s.selectedCategory)
+	
   return (
-		<div>
-			<h1 className='text- text-3xl font-bold underline'> Hello world! </h1>
-			<Button>Click me</Button>
-			<div>
-				<button onClick={notify}>Notify!</button>
-				<ToastContainer />
-			</div>
-			<Camera color='red' size={48} />;
+		<div className='pb-20 p-4'>
+			<h1 className='text-xl font-bold mb-4'>Меню на неделю</h1>
+
+			{selectedCategory === 'shopping' ? (
+				<ShoppingList />
+			) : (
+				<p className='text-gray-500'>
+					Раздел: <b>{selectedCategory}</b>
+				</p>
+			)}
+
+			<BottomBar />
 		</div>
 	)
 }
